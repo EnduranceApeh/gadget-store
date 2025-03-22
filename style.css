@@ -1,0 +1,466 @@
+:root{
+    --primary-color: #1B4D3E;
+    --secondary-color: #fff;
+    --bold-color: #000;
+    --text-color: #47494a;
+
+    --hover-color: #1B4D3E;
+}
+body{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+/* NavBar */
+a{
+    text-decoration: none;
+}
+li{
+    list-style: none;
+}
+.top-bar{
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid grey;
+}
+.top-bar p{
+    font-size: 0.9rem;
+}
+.country{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 1px;
+    white-space: nowrap;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+.signup, .signin {
+    background: var(--primary-color);
+    border: none;
+}
+
+.signup:hover {
+    background: #0056b3;
+}
+
+/* Popup Styles */
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+.popup-content {
+    background: white;
+    padding: 20px;
+    width: 400px;
+    border-radius: 5px;
+    text-align: center;
+    position: relative;
+}
+
+.popup-content input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.popup-btn {
+    width: 40%;
+    background: var(--primary-color);
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.popup-btn:hover {
+    background: #0056b3;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/*Middle bar*/
+.middle-bar{
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+}
+
+.logo{
+    white-space: nowrap;
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    width: 30%;
+}
+.search{
+    width: 60%;
+}
+.search input{
+    width: 80%;
+    max-width: 50%;
+    height: 7vh;
+    position: relative;
+    padding-left: 10px;
+    text-align: left;
+    font-size: 1rem;
+}
+.search-icon{
+    color: var(--secondary-color);
+    position: absolute;
+    top: 64px;
+    background: var(--primary-color);
+    padding: 13px 15px;
+}
+.call-us{
+    display: flex;
+}
+.number{
+    line-height: 4px;
+}
+.favorite-cart-icon{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+.favorite, .cart{
+    position: relative;
+}
+.cart-count, .favorite-count{
+    position: absolute;
+    background-color: var(--primary-color);
+    width: 20px;
+    padding: 2px;
+    border-radius: 50%;
+    text-align: center;
+    color: var(--secondary-color);
+    top: 17px;
+    left: 16px;
+}
+
+.bottom-bar{
+    padding: 0 20px;
+    color: var(--secondary-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100;
+    background-color: var(--primary-color);
+    height: 60px;
+}
+
+.left-item{
+    display: flex;
+    align-items: center;
+    gap: 90px;
+    width: 60%;
+}
+.categories{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+.categories-text{
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+.nav-menu{
+    display: flex;
+    gap: 30px;
+    text-transform: uppercase;
+}
+.nav-link{
+    color: var(--secondary-color);
+    font-weight: bold;
+}
+
+/* Hero Styling*/
+.hero-container{
+    background-image: url(assets/images/sample-2.webp);
+    width: 100%;
+    height: 83vh;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: center;
+    text-transform: uppercase;
+    position: relative;
+}
+.hero-container .text{
+    text-align: left;
+    position: absolute;
+    top: 29%;
+    left: 70px;
+    
+}
+.hero-container h4{
+    font-weight: 400;
+    line-height: 1;
+    color: #47494a;
+    font-style: italic;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+.hero-container h1{
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 33px;
+    margin-bottom: 30px;
+    margin-top: 0;
+}
+.hero-container button{
+    padding: 15px 30px;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    border: none;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+/*Static Icon and Banner styling*/
+main{
+    padding: 60px 20px;
+}
+.static-icons-text{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.icon-text{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+}
+.static-icon{
+    object-fit: contain;
+}
+.static-text h4{
+    line-height: 0;
+}
+.static-text p{
+    line-height: 7px;
+    font-size: 0.9rem;
+    font-weight: 100;
+    color: #888;
+}
+.banner-section{
+    display: flex;
+    margin-top: 30px;
+    gap: 16px;
+
+}
+.banner-img{
+    object-fit: cover;
+    width: 400px;
+    height: 200px;
+    transition: transform 0.3s ease-in-out;
+}
+.banner-img:hover{
+    transform: scaleX(1.05);
+}
+
+/* Popular Categories Styling */
+title{
+    text-transform: capitalize;
+    font-weight: 600;
+    
+    font-size: 2rem;
+    color: #1d1d1d;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 10px;
+}
+.title::after {
+    content: "";
+    display: block;
+    width: 5%;
+    height: 2px; 
+    background: blue;
+    margin-top: 10px;
+}
+
+#popularCategories{
+    margin-top: 90px;
+}
+.categories-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 30px;
+}
+.categories-col{
+    width: 32%;
+}
+.image-container{
+    width: 100%;
+    background-color: #f5f5f5;
+    text-align: center;
+}
+.image-container img{
+    width: 70%;
+    height: 300px;
+    object-fit: contain;
+}
+.categories-col h6{
+    margin-bottom: 0;
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+.categories-col p{
+    color: #47494a;
+    margin-bottom: 30px;
+}
+.categories-col a {
+    background-color: #f5f5f5;
+    padding: 8px 20px;
+    color: #000;
+    text-transform: uppercase;
+    font-weight: lighter;
+    transition: 0.3s ease-in-out;
+    border-radius: 10%;
+    font-size: 0.9rem;
+}
+.categories-col a:hover{
+    background-color: var(--hover-color);
+    color: var(--secondary-color);
+}
+
+
+/* Products Styles */
+.product-section{
+    margin-top: 50px;
+}
+.product-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    justify-content: center;
+    align-items: stretch; /* Ensures all cards stretch equally */
+}
+
+.card {
+    position: relative;
+    width: 180px;
+    height: 200px;
+    background: #f5f5f5;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add-to-favorite {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #000;
+}
+
+.add-to-favorite:hover {
+    color: red;
+}
+
+/* Product Image */
+.product-image {
+    width: 100%;
+    height: 120px; /* Consistent image size */
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Product Info */
+.info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.info h2 {
+    font-size: 1rem;
+    margin: ;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.info div {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.info p {
+    color: gray;
+    font-size: 16px;
+}
+
+/* Add to bag */
+.add-to-bag {
+    width: 60%;
+    max-width: 40px;
+    height: 40px;
+    padding: 2px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-to-bag:hover {
+    background-color: var(--hover-color);
+}
