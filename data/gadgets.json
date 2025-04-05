@@ -2,7 +2,7 @@
   {
     "products": [
         {
-          "id": 1,
+          "id": "1",
           "name": "iPhone 15",
           "category": "Phones",
           "price": 1200,
@@ -20,7 +20,7 @@
           "availability": "In Stock"
         },
         {
-          "id": 2,
+          "id": "2",
           "name": "Apple 16-inch MacBook Pro M3 (2024)",
           "category": "Laptops",
           "price": 4554000,
@@ -38,7 +38,7 @@
           "availability": "In Stock"
         },
         {
-          "id": 3,
+          "id": "3",
           "name": "Samsung Galaxy Buds 2",
           "category": "Accessories",
           "price": 150,
@@ -55,7 +55,7 @@
           "availability": "Out of Stock"
         },
         {
-          "id": 4,
+          "id": "4",
           "name": "iPhone 8",
           "category": "Phones",
           "price": 1200,
@@ -73,7 +73,7 @@
           "availability": "In Stock"
         },
         {
-          "id": 5,
+          "id": "5",
           "name": "itel 2163",
           "category": "Phones",
           "price": 15500,
@@ -91,7 +91,7 @@
           "availability": "In Stock"
         },
         {
-          "id": 6,
+          "id": "6",
           "name": "itel S23",
           "category": "Phones",
           "price": 15500,
@@ -109,7 +109,7 @@
           "availability": "In Stock"
         },
         {
-          "id": 7,
+          "id": "7",
           "name": "HP Omni Book",
           "category": "Laptops",
           "price": 4554000,
@@ -127,7 +127,7 @@
           "availability": "In Stock"
         },
         {
-          "id": 8,
+          "id": "8",
           "name": "Galaxy S25 Ultra",
           "category": "Phones",
           "price": 1200,
@@ -146,7 +146,7 @@
         }
         ,
         {
-          "id": 9,
+          "id": "9",
           "name": "iPhone 13 Pro max",
           "category": "Phones",
           "price": 1200,
@@ -164,7 +164,7 @@
           "availability": "In Stock"
         },
         {
-          "id": 10,
+          "id": "10",
           "name": "iPhone xr",
           "category": "Phones",
           "price": 1200,
@@ -182,7 +182,7 @@
           "availability": "In Stock"
         },
         {
-          "id": 11,
+          "id": "11",
           "name": "Airpod pro2",
           "category": "Accessories",
           "price": 150,
@@ -199,7 +199,7 @@
           "availability": "Out of Stock"
         },
         {
-          "id": 12,
+          "id": "12",
           "name": "HP EliteBook",
           "category": "Laptops",
           "price": 4554000,

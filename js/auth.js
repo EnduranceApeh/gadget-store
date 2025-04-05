@@ -1,22 +1,56 @@
+import { auth, db } from "./firebase.js";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { collection, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getUserCart, matchingItems, displayMiniCartItem, displayFullCart } from "./cart.js";
+
 // Sign Up Function
-function signUp(email, password) {
-    auth.createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        console.log("User signed up:", userCredential.user.uid);
-      })
-      .catch((error) => {
-        console.error("Error signing up:", error.message);
-      });
+async function saveUserToFirestore(user) {
+  try{
+    const userRef = doc(collection(db, "users"), user.uid);
+    await setDoc(userRef, {
+      email: user.email,
+      createdAt: serverTimestamp()
+    });
+    console.log("user saved to firestore")
+  } catch(error) {
+    console.log(error)
   }
+}
+
+async function signUp() {
+  const email = document.getElementById("signup-email").value
+  const password = document.getElementById("signup-password").value
+
+  try{
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+    console.log("user signedup")
+
+    await saveUserToFirestore(user)
+  } catch (error) {
+    console.error("Error signing up: ", error.message);
+  }
+}
   
   // Login Function
-  function login(email, password) {
-    auth.signInWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        console.log("User logged in:", userCredential.user.uid);
-      })
-      .catch((error) => {
-        console.error("Error logging in:", error.message);
-      });
+  async function login() {
+    const email = document.getElementById("login-email").value;
+    const password = document.getElementById("login-password").value;
+
+      try{
+        const userCredential = await signInWithEmailAndPassword(auth, email, password)
+        console.log("User loggin successfully", userCredential.user.uid)
+
+        matchingItems()
+        displayMiniCartItem()
+        displayFullCart();
+      } catch (error) {
+        console.error("Error loggin in:", error.message)
+      }
   }
   
+const loginBtn = document.getElementById("login-btn");
+const signupBtn = document.getElementById("signup-btn");
+
+loginBtn.addEventListener("click", () => login())
+signupBtn.addEventListener("click", () => signUp())
