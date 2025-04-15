@@ -1,6 +1,7 @@
 // Fetch Data
 import { fetchData } from "./js/utility.js";
-import { addToCart, matchingItems } from "./js/cart.js";
+import { addToCart } from "./js/cart.js";
+import { addToWhishList } from "./js/whishlist.js";
 
 const products = await fetchData();
 const laptops = products.filter(item => item.category === "Laptops")
@@ -13,6 +14,9 @@ const closeSignUpBtn = document.querySelector("#signup-popup .close");
 const closeSignInBtn = document.querySelector("#signin-popup .close");
 const cartBtn = document.querySelector(".js-cart");
 const closeCanva = document.querySelector(".close-canva");
+const whishListBtn = document.querySelector(".js-whishlist-btn");
+const closeWhishListBtn = document.querySelector(".close-whishlist-canva");
+
 
 function openPopup(popupId) {
     document.getElementById(popupId).style.display = "flex";
@@ -81,11 +85,11 @@ function displayCategoryItems(displayCount, category, elementId) {
         html +=`
                 <div class="card">
                 <!-- Favorite Icon -->
-                <div>
+                <button class="add-to-whishlist-btn" data-item-id="${item.id}">
                     <svg width="30px" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 add-to-favorite">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
                     </svg>
-                </div>
+                </button>
             
                 <!-- Product Image -->
                 <div class="card-img-container">
@@ -111,10 +115,12 @@ function displayCategoryItems(displayCount, category, elementId) {
 
     productContainer.innerHTML = html;
 
-    /* addEventListener to all the add-to-bag button */
+   
    // Select only buttons within the specific container
     const addToCartBtns = productContainer.querySelectorAll(".js-add-to-bag");
+    const addToWhishlistBtns = productContainer.querySelectorAll(".add-to-whishlist-btn");
 
+    /* addEventListener to all the add-to-bag button */
     addToCartBtns.forEach((button) => {
         const itemID = button.dataset.itemId;
        
@@ -122,6 +128,14 @@ function displayCategoryItems(displayCount, category, elementId) {
             addToCart(itemID);
         });
     });
+    /* addEventListener to all the addToWishlist button */
+    addToWhishlistBtns.forEach((button) => {
+        const itemID = button.dataset.itemId;
+
+        button.addEventListener("click", () => {
+            addToWhishList(itemID)
+        })
+    })
     
 }
 
@@ -130,12 +144,16 @@ signInBtn.addEventListener("click", ()=> openPopup("signin-popup"))
 singUpBtn.addEventListener("click", () => openPopup("signup-popup"))
 closeSignUpBtn.addEventListener("click", () => closePopup("signup-popup"))
 closeSignInBtn.addEventListener("click", () => closePopup("signin-popup"))
+
+//Open cart Canva
 cartBtn.addEventListener("click", () => {
   const offCanvasCart = document.querySelector(".off-canva-cart");
   const offCanvasOverlay = document.querySelector(".offcanvas-overlay")
   offCanvasCart.style.right = "0";
   offCanvasOverlay.classList.add("open");
 });
+
+// Close cart Canva
 closeCanva.addEventListener("click", () => {
   const offCanvasCart = document.querySelector(".off-canva-cart");
   const offCanvasOverlay = document.querySelector(".offcanvas-overlay")
@@ -143,6 +161,21 @@ closeCanva.addEventListener("click", () => {
   offCanvasOverlay.classList.remove("open");
 })
 
+// Open whishlist Canva
+whishListBtn.addEventListener("click", () => {
+    const offCanvasCart = document.querySelector(".off-canva-whishlist");
+    const offCanvasOverlay = document.querySelector(".offcanvas-overlay")
+    offCanvasCart.style.right = "0";
+    offCanvasOverlay.classList.add("open");
+})
+
+// close whishlist canava
+closeWhishListBtn.addEventListener("click", () => {
+    const offCanvasCart = document.querySelector(".off-canva-whishlist");
+    const offCanvasOverlay = document.querySelector(".offcanvas-overlay")
+    offCanvasCart.style.right = "-100%";
+    offCanvasOverlay.classList.remove("open");
+})
 // Function calls
 displayCategories()
 displayCategoryItems(5, phones, "phone-container")

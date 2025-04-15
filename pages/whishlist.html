@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../css/cart.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!--SCRIPTs-->
+  <script src="../script.js" type="module" defer></script>
+  <script src="../js/whishlist.js" type="module" defer></script>
+</head>
+<body>
+  <!-- Header -->
+  <!--NavBar-->
+  
+  
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <div class="container">
+      <a href="/">Home</a> &gt; <span>Whishlist</span>
+    </div>
+  </div>
+  
+  <!-- Cart Content -->
+  <div class="container">
+    <h1>Your wishlist</h1>
+    
+    <div class="cart-wrapper">
+      <table class="cart-table">
+        <thead>
+          <tr>
+            <th>IMAGE</th>
+            <th>PRODUCT NAME</th>
+            <th>UNIT PRICE</th>
+            <th>QTY</th>
+            <th>SUBTOTAL</th>
+            <th>ADD TO BAG</th>
+          </tr>
+        </thead>
+        <tbody id="wishlist-tbody">
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

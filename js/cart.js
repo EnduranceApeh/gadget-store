@@ -3,13 +3,11 @@ import { doc, setDoc, getDoc, updateDoc, increment, collection, getDocs, deleteD
 import { products } from "../script.js";
 
 // in cart.html or a script that runs on page load
-import { auth } from "./firebase.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { displayMiniCartItem, displayFullCart } from "./cart.js";
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    // Now safe to load cart
+    // load cart
     displayMiniCartItem(user.uid);
     displayFullCart(user.uid);
   } else {
@@ -39,66 +37,60 @@ async function addToCart(itemId) {
                 quantity: 1
             });
         }
+        displayMiniCartItem(user.uid);
+        displayFullCart(user.uid);
     } catch (error) {
         console.error("Error adding to cart:", error.message)
     }
 }
 
-async function getUserCart() {
-    const user = auth.currentUser;
-
-    if (!user) {
-        console.log("Please User is not logged in.");
-        //alert("Please log in to view your cart.");
-        return;
+async function getUserCart(userId) {
+    if (!userId) {
+      console.log("User not logged in.");
+      return;
     }
-    const cartRef = collection(db, "users", user.uid, "cart");
-
-    try{
-        const cartSnapshot = await getDocs(cartRef);
-        let cartItems = [];
-
-        cartSnapshot.forEach(cartDoc => {
-            cartItems.push({
-                itemId: cartDoc.id,
-                quantity: cartDoc.data().quantity
-            });
+    const cartRef = collection(db, "users", userId, "cart");
+  
+    try {
+      const cartSnapshot = await getDocs(cartRef);
+      let cartItems = [];
+  
+      cartSnapshot.forEach((cartDoc) => {
+        cartItems.push({
+          itemId: cartDoc.id,
+          quantity: cartDoc.data().quantity,
         });
-
-        console.log("User cart:", cartItems);
-        return cartItems;
+      });
+  
+      console.log("User cart:", cartItems);
+      return cartItems;
     } catch (error) {
-        console.error("Eror fetching cart:", error.message)
+      console.error("Error fetching cart:", error.message);
     }
-}
+  }
+  
 
-async function matchingItems() {
-    const userCart = await getUserCart();
-    console.log("This is user cart", userCart)
-    if(!userCart || userCart.length === 0) {
-        console.log("No items in cart.");
-        return [];
+  async function matchingItems(userId) {
+    const userCart = await getUserCart(userId);
+    if (!userCart || userCart.length === 0) {
+      return [];
     }
-
-    let matchingItem = []
-
-    userCart .forEach((cartItem) => {
-        let foundItem = products.find((product) => product.id === cartItem.itemId)
-
-        if(foundItem) {
-            matchingItem.push(
-                {
-                    ...foundItem,
-                    quantity: cartItem.quantity
-                }
-            )
-        }
-
-    })
-    console.log("Matching items", matchingItem)
+  
+    let matchingItem = [];
+  
+    userCart.forEach((cartItem) => {
+      let foundItem = products.find((product) => product.id === cartItem.itemId);
+      if (foundItem) {
+        matchingItem.push({
+          ...foundItem,
+          quantity: cartItem.quantity,
+        });
+      }
+    });
+  
     return matchingItem;
-}
-
+  }
+  
 async function removeFromCart(userId, itemId) {
     if (!userId || !itemId) {
         console.error("Error: userId or itemId is undefined!");
@@ -113,108 +105,161 @@ async function removeFromCart(userId, itemId) {
     }
 }
 
-async function displayMiniCartItem() {
-    const user = auth.currentUser;
-    let matchingItem = await matchingItems();
-    const miniCartBody = document.querySelector(".js-minicart-body");
-    let html = "";
+async function displayMiniCartItem(userId) {
+  const matchingItemList = await matchingItems(userId);
+  const miniCartBody = document.querySelector(".js-minicart-body");
 
-    console.log(matchingItem)
-    if(!matchingItem) {
-        miniCartBody.innerHTML = "No item in cart"
-        return;
-    }
+  if (!matchingItemList || matchingItemList.length === 0) {
+    miniCartBody.innerHTML = "No item in cart";
+    return;
+  }
 
-   matchingItem.forEach((item) => {
-        html += `
-                <li>
-                <a href="#" class="cart-img"><img src=${item.image}></a>
-                <div class="content">
-                    <a href="#" class="cart-item-name">${item.name}</a>
-                    <span class="quantity-price">
-                        ${item.quantity} x <span class="amount">${item.price}</span>
-                    </span>
-                </div>
-                <button class="remove-cart-item-btn js-remove-btn" data-item-id = "${item.id}">
-                    <svg width="13px" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </li>
-        `
-    })
+  let html = "";
+  matchingItemList.forEach((item) => {
+    html += `
+      <li>
+        <a href="#" class="mini-img"><img src=${item.image}></a>
+        <div class="content">
+            <a href="#" class="cart-item-name">${item.name}</a>
+            <span class="quantity-price">
+                ${item.quantity} x <span class="amount">${item.price}</span>
+            </span>
+        </div>
+        <button class="remove-cart-item-btn js-remove-btn" data-item-id="${item.id}">
+            <svg width="13px" ...> ... </svg>
+        </button>
+      </li>
+    `;
+  });
 
-    console.log("display Cart")
-    miniCartBody.innerHTML = html;
+  miniCartBody.innerHTML = html;
+  document.querySelector('.js-subtotal').innerHTML = await subTotal(userId)
 
-    const removeBtn = document.querySelectorAll(".js-remove-btn")
-    
-    removeBtn.forEach((button) => {
-        button.addEventListener("click", async () => {
-            const itemId = button.dataset.itemId;
-            console.log("Remove id", itemId)
-            await removeFromCart(user.uid, itemId)
-            
-        })
-    })
-
+  const removeBtn = document.querySelectorAll(".js-remove-btn");
+  removeBtn.forEach((button) => {
+    button.addEventListener("click", async () => {
+      const itemId = button.dataset.itemId;
+      await removeFromCart(userId, itemId);
+      displayMiniCartItem(userId); // refresh after removal
+    });
+  });
 }
 
-async function displayFullCart() {
-    const user = auth.currentUser;
-    let matchingItem = await matchingItems();
+async function displayFullCart(userId) {
+    const matchingItemList = await matchingItems(userId);
     const cartTableBody = document.getElementById("cart-tbody");
+  
+    if (!matchingItemList || matchingItemList.length === 0) {
+      cartTableBody.innerHTML = "<tr><td colspan='6'>No item in cart</td></tr>";
+      return;
+    }
+  
     let html = "";
+    matchingItemList.forEach((item) => {
+      html += `
+        <tr>
+          <td class="product-image"><img src="${item.image}" alt="Product"></td>
+          <td class="product-name">${item.name}</td>
+          <td class="product-price">${item.price}</td>
+          <td class="product-quantity">
+            <div class="quantity-control">
+              <button class="quantity-btn minus" data-item-id = "${item.id}">-</button>
+              <input type="text" value="${item.quantity}" class="quantity-input" readonly>
+              <button class="quantity-btn plus" data-item-id = "${item.id}">+</button>
+            </div>
+          </td>
+          <td class="product-subtotal">$${item.price * item.quantity}</td>
+          <td class="product-actions">
+            <button class="action-btn remove" data-item-id="${item.id}"><i class="fas fa-times"></i></button>
+          </td>
+        </tr>
+      `;
+    });
+  
+    cartTableBody.innerHTML = html;
+  
+    const removeBtn = document.querySelectorAll(".remove");
+    const minusBtn = document.querySelectorAll(".minus");
+    const plusBtn = document.querySelectorAll(".plus");
 
-    console.log(matchingItem)
-    if(!matchingItem) {
-        miniCartBody.innerHTML = "No item in cart"
-        return;
+    // addEventListener to buttons
+    removeBtn.forEach((button) => {
+      button.addEventListener("click", async () => {
+        const itemId = button.dataset.itemId;
+        await removeFromCart(userId, itemId);
+        displayFullCart(userId); // refresh
+      });
+    });
+
+    minusBtn.forEach((button) => {
+      button.addEventListener("click", async () => {
+        const itemId = button.dataset.itemId;
+        console.log("itemid", itemId)
+        await decrementQty(itemId, userId);
+      })
+    })
+
+    plusBtn.forEach((button) => {
+      button.addEventListener("click", async () => {
+        const itemId = button.dataset.itemId;
+        await incrementQty(itemId, userId);
+      })
+    })
+
+    const fullCartSubtotal = document.querySelector('.js-full-cart-subtotal');
+  if(fullCartSubtotal) {
+    fullCartSubtotal.innerHTML = await subTotal(userId);
+  }
+
+  }
+  
+async function subTotal(userId) {
+  const userCart = await matchingItems(userId);
+  console.log("subtotal cart", userCart)
+    if (!userCart || userCart.length === 0) {
+      return 0;
     }
 
-   matchingItem.forEach((item) => {
-        html += `
-        <tr>
-        <td class="product-image">
-          <img src="${item.image}" alt="Product">
-        </td>
-        <td class="product-name" data-label="PRODUCT NAME">${item.name}</td>
-        <td class="product-price" data-label="UNIT PRICE">${item.price}</td>
-        <td class="product-quantity" data-label="QTY">
-          <div class="quantity-control">
-            <button class="quantity-btn minus">-</button>
-            <input type="text" value="1" class="quantity-input" readonly>
-            <button class="quantity-btn plus">+</button>
-          </div>
-        </td>
-        <td class="product-subtotal" data-label="SUBTOTAL">$70.00</td>
-        <td class="product-actions" data-label="ACTION">
-          <button class="action-btn edit"><i class="fas fa-pencil-alt"></i></button>
-          <button class="action-btn remove" data-item-id = "${item.id}"><i class="fas fa-times"></i></button>
-        </td>
-      </tr>
-        `
-    })
+    const subtotal = userCart.reduce((accumulator, item) => {
+      return accumulator + item.quantity * item.price;
+    }, 0)
 
-    console.log("display Cart")
-    cartTableBody.innerHTML = html;
-
-    const removeBtn = document.querySelectorAll(".remove")
-    
-    removeBtn.forEach((button) => {
-        button.addEventListener("click", async () => {
-            const itemId = button.dataset.itemId;
-            console.log("Remove id", itemId)
-            await removeFromCart(user.uid, itemId)
-            
-        })
-    })
-
+    return subtotal
 }
 
-const matchingItem = await matchingItems()
-console.log(matchingItem)
+async function incrementQty(itemId, userId) {
+  await updateDoc(doc(db, "users", userId, "cart", itemId), {
+    quantity: increment(1)
+  })
+  await displayFullCart(userId);
+  await displayMiniCartItem(userId);
+}
+
+async function decrementQty(itemId, userId) {
+  const itemRef = doc(db, "users", userId, "cart", itemId);
+  const itemSnap = await getDoc(itemRef);
+
+  if(itemSnap.exists()) {
+    const currentQty = itemSnap.data().quantity;
+    if(currentQty > 1) {
+      await updateDoc(itemRef, {
+        quantity: increment(-1)
+      });
+    }else {
+      await deleteDoc(itemRef);
+    }
+    await displayFullCart(userId)
+    await displayMiniCartItem(userId)
+  }
+}
 
 
-
-export { addToCart, getUserCart, matchingItems, displayMiniCartItem, removeFromCart, displayFullCart }
+export {
+    addToCart,
+    getUserCart,
+    matchingItems,
+    displayMiniCartItem,
+    removeFromCart,
+    displayFullCart,
+  };
+  

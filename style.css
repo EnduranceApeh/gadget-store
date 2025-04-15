@@ -482,7 +482,7 @@ title{
     visibility: visible;
     opacity: 1;
 }
-.off-canva-cart{
+.off-canva{
     position: fixed;
     top: 0;
     right: -100%;
@@ -503,7 +503,7 @@ title{
     flex-direction: column;
     justify-content: space-between;
 }
-.off-canva-cart .inner .head {
+.off-canva .inner .head {
     position: static;
     display: flex;
     flex-wrap: wrap;
@@ -513,32 +513,32 @@ title{
     border-bottom: 1px solid #eee;
     width: 100%;
 }
-.off-canva-cart .inner .head button{
+.off-canva .inner .head button{
     background: none;
     border: none;
     cursor: pointer;
 }
-.off-canva-cart .body{
+.off-canva .body{
     margin-bottom: 30px;
     padding-bottom: 15px;
     border-bottom: 1px solid #eee;
 }
-.off-canva-cart .body.customScroll{
+.off-canva .body.customScroll{
     height: 324px;
     overflow-y: auto;
 }
-.minicart-product-list li{
+.mini-product-list li{
     display: flex;
     align-items: start;
     justify-content: space-between;
     border-bottom: 1px solid #eee;
     padding-bottom: 15px;
 }
-.minicart-product-list li .cart-img img {
+.mini-product-list li .mini-img img {
     background-color: #f5f5f5;
     width: 60px;
 }
-.minicart-product-list li .content{
+.mini-product-list li .content{
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -594,4 +594,16 @@ title{
 .foot .button .checkout{
     background-color: var(--primary-color);
     color: #fff;
+}
+
+/* WishList add to bag button */
+.action-btn.add-to-bag{
+    color: #fff;
+    background-color: var(--primary-color);
+    padding: 10px 12px;
+    text-align: center;
+    text-transform: uppercase;
+}
+.action-btn.add-to-bag:hover{
+    background-color: #1d1d1d;
 }

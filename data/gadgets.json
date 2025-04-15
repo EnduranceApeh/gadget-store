@@ -6,7 +6,7 @@
           "name": "iPhone 15",
           "category": "Phones",
           "price": 1200,
-          "image": "assets/images/iphone_15.png",
+          "image": "/assets/images/iphone_15.png",
           "description": "The latest iPhone 15 Pro with an A17 chip and titanium frame.",
           "specs": {
             "screen": "6.1-inch OLED",
@@ -24,7 +24,7 @@
           "name": "Apple 16-inch MacBook Pro M3 (2024)",
           "category": "Laptops",
           "price": 4554000,
-          "image": "assets/images/Apple-16-inch-MacBook-Pro-M3-(2024).jpeg",
+          "image": "/assets/images/Apple-16-inch-MacBook-Pro-M3-(2024).jpeg",
           "description": "Apple MacBook Air powered by the M2 chip with a sleek design.",
           "specs": {
             "screen": "13.6-inch Retina",
@@ -42,7 +42,7 @@
           "name": "Samsung Galaxy Buds 2",
           "category": "Accessories",
           "price": 150,
-          "image": "assets/images/Airpod-max.png",
+          "image": "/assets/images/Airpod-max.png",
           "description": "Wireless earbuds with noise cancellation and high-quality sound.",
           "specs": {
             "battery": "7 hours playtime",
@@ -59,7 +59,7 @@
           "name": "iPhone 8",
           "category": "Phones",
           "price": 1200,
-          "image": "assets/images/iphone-13-pro-max.png",
+          "image": "/assets/images/iphone-13-pro-max.png",
           "description": "The latest iPhone 15 Pro with an A17 chip and titanium frame.",
           "specs": {
             "screen": "6.1-inch OLED",
@@ -77,7 +77,7 @@
           "name": "itel 2163",
           "category": "Phones",
           "price": 15500,
-          "image": "assets/images/itel-2163.jpg",
+          "image": "/assets/images/itel-2163.jpg",
           "description": "The latest iPhone 15 Pro with an A17 chip and titanium frame.",
           "specs": {
             "screen": "6.1-inch OLED",
@@ -95,7 +95,7 @@
           "name": "itel S23",
           "category": "Phones",
           "price": 15500,
-          "image": "assets/images/iphone-xr.jpeg",
+          "image": "/assets/images/iphone-xr.jpeg",
           "description": "The latest iPhone 15 Pro with an A17 chip and titanium frame.",
           "specs": {
             "screen": "6.1-inch OLED",
@@ -113,7 +113,7 @@
           "name": "HP Omni Book",
           "category": "Laptops",
           "price": 4554000,
-          "image": "assets/images/HP-Omnibook.webp",
+          "image": "/assets/images/HP-Omnibook.webp",
           "description": "Apple MacBook Air powered by the M2 chip with a sleek design.",
           "specs": {
             "screen": "13.6-inch Retina",
@@ -131,7 +131,7 @@
           "name": "Galaxy S25 Ultra",
           "category": "Phones",
           "price": 1200,
-          "image": "assets/images/Galaxy-S25-ultra.webp",
+          "image": "/assets/images/Galaxy-S25-ultra.webp",
           "description": "The latest iPhone 15 Pro with an A17 chip and titanium frame.",
           "specs": {
             "screen": "6.1-inch OLED",
@@ -150,7 +150,7 @@
           "name": "iPhone 13 Pro max",
           "category": "Phones",
           "price": 1200,
-          "image": "assets/images/iphone-13-pro-max.png",
+          "image": "/assets/images/iphone-13-pro-max.png",
           "description": "The latest iPhone 15 Pro with an A17 chip and titanium frame.",
           "specs": {
             "screen": "6.1-inch OLED",
@@ -168,7 +168,7 @@
           "name": "iPhone xr",
           "category": "Phones",
           "price": 1200,
-          "image": "assets/images/iphone-xr.jpeg",
+          "image": "/assets/images/iphone-xr.jpeg",
           "description": "The latest iPhone 15 Pro with an A17 chip and titanium frame.",
           "specs": {
             "screen": "6.1-inch OLED",
@@ -186,7 +186,7 @@
           "name": "Airpod pro2",
           "category": "Accessories",
           "price": 150,
-          "image": "assets/images/Airpod-pro2.png",
+          "image": "/assets/images/Airpod-pro2.png",
           "description": "Wireless earbuds with noise cancellation and high-quality sound.",
           "specs": {
             "battery": "7 hours playtime",
@@ -203,7 +203,7 @@
           "name": "HP EliteBook",
           "category": "Laptops",
           "price": 4554000,
-          "image": "assets/images/Hp-elitebook-ultra.webp",
+          "image": "/assets/images/Hp-elitebook-ultra.webp",
           "description": "Apple MacBook Air powered by the M2 chip with a sleek design.",
           "specs": {
             "screen": "13.6-inch Retina",

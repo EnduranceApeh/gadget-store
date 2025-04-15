@@ -1,7 +1,6 @@
 import { auth, db } from "./firebase.js";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { collection, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-import { getUserCart, matchingItems, displayMiniCartItem, displayFullCart } from "./cart.js";
 
 // Sign Up Function
 async function saveUserToFirestore(user) {
@@ -41,9 +40,7 @@ async function signUp() {
         const userCredential = await signInWithEmailAndPassword(auth, email, password)
         console.log("User loggin successfully", userCredential.user.uid)
 
-        matchingItems()
-        displayMiniCartItem()
-        displayFullCart();
+       
       } catch (error) {
         console.error("Error loggin in:", error.message)
       }
