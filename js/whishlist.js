@@ -210,7 +210,9 @@ async function getUserWishList(userId) {
       `;
     });
   
-    wishlistTableBody.innerHTML = html;
+    if(wishlistTableBody) {
+      wishlistTableBody.innerHTML = html;
+    }
   
     const addToBagBtn = document.querySelectorAll(".action-btn.add-to-bag");
     const minusBtn = document.querySelectorAll(".minus");

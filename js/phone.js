@@ -1,16 +1,7 @@
-// Fetch Data
-import { fetchData } from "./js/utility.js";
-import { addToCart } from "./js/cart.js";
-import { addToWhishList } from "./js/whishlist.js";
-import { displayCategoryItems, displayCategories } from "./js/displayFunctions.js";
+//import { phones } from "../script.js";
+import { displayCategoryItems } from "./displayFunctions.js";
+import { fetchData } from "./utility.js";
 
-const products = await fetchData();
-const laptops = products.filter(item => item.category === "Laptops")
-const phones = products.filter(item => item.category === "Phones");
-const accessories = products.filter(item => item.category === "Accessories")
-
-const signInBtn = document.getElementById("signInBtn");
-const singUpBtn = document.getElementById("signUpBtn");
 const closeSignUpBtn = document.querySelector("#signup-popup .close");
 const closeSignInBtn = document.querySelector("#signin-popup .close");
 const cartBtn = document.querySelector(".js-cart");
@@ -19,22 +10,11 @@ const whishListBtn = document.querySelector(".js-whishlist-btn");
 const closeWhishListBtn = document.querySelector(".close-whishlist-canva");
 
 
-function openPopup(popupId) {
-    document.getElementById(popupId).style.display = "flex";
-}
+const products = await fetchData();
+const phones = products.filter(item => item.category === "Phones");
+console.log("phones", phones)
 
-function closePopup(popupId) {
-    document.getElementById(popupId).style.display = "none";
-}
-
-
-// Display Categories
-
-
-signInBtn.addEventListener("click", ()=> openPopup("signin-popup"))
-singUpBtn.addEventListener("click", () => openPopup("signup-popup"))
-closeSignUpBtn.addEventListener("click", () => closePopup("signup-popup"))
-closeSignInBtn.addEventListener("click", () => closePopup("signin-popup"))
+displayCategoryItems("all", phones, "phone-container")
 
 //Open cart Canva
 if(cartBtn) {
@@ -78,13 +58,3 @@ if(closeWhishListBtn) {
         offCanvasOverlay.classList.remove("open");
     })
 }
-
-// Function calls
-displayCategories()
-displayCategoryItems(5, phones, "phone-container")
-displayCategoryItems(3, laptops, "laptops-container")
-displayCategoryItems(2, accessories, "accessories-container")
-
-
-
-export { products }

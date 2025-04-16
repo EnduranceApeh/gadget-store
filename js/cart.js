@@ -44,6 +44,7 @@ async function addToCart(itemId) {
     }
 }
 
+// get user cart from firebase firestore
 async function getUserCart(userId) {
     if (!userId) {
       console.log("User not logged in.");
@@ -105,6 +106,7 @@ async function removeFromCart(userId, itemId) {
     }
 }
 
+// funtion to displayMinicart
 async function displayMiniCartItem(userId) {
   const matchingItemList = await matchingItems(userId);
   const miniCartBody = document.querySelector(".js-minicart-body");
@@ -132,7 +134,9 @@ async function displayMiniCartItem(userId) {
     `;
   });
 
+ if(miniCartBody) {
   miniCartBody.innerHTML = html;
+ }
   document.querySelector('.js-subtotal').innerHTML = await subTotal(userId)
 
   const removeBtn = document.querySelectorAll(".js-remove-btn");
@@ -176,7 +180,9 @@ async function displayFullCart(userId) {
       `;
     });
   
-    cartTableBody.innerHTML = html;
+    if(cartTableBody) {
+      cartTableBody.innerHTML = html;
+    }
   
     const removeBtn = document.querySelectorAll(".remove");
     const minusBtn = document.querySelectorAll(".minus");
